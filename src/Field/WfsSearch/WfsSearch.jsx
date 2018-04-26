@@ -10,7 +10,7 @@ import Logger from '../../Util/Logger';
 import { CSS_PREFIX } from '../../constants';
 
 import OlMap from 'ol/Map';
-import OlFormatFilter from 'ol/format/filter';
+import { equalTo, like, or } from 'ol/format/filter';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
 import OlFormatWFS from 'ol/format/WFS';
 
@@ -358,14 +358,14 @@ export class WfsSearch extends React.Component {
         if ((type === 'int' || type === 'number') && searchTerm.match(/[^.\d]/)) {
           return undefined;
         }
-        return OlFormatFilter.equalTo(attribute, searchTerm);
+        return equalTo(attribute, searchTerm);
       } else {
-        return OlFormatFilter.like(attribute, `*${searchTerm}*`, '*', '.', '!', details && details[attribute].matchCase);
+        return like(attribute, `*${searchTerm}*`, '*', '.', '!', details && details[attribute].matchCase);
       }
     })
       .filter(filter => filter !== undefined);
     if (attributes.length > 1) {
-      return OlFormatFilter.or(...propertyFilters);
+      return or(...propertyFilters);
     } else {
       return propertyFilters[0];
     }
