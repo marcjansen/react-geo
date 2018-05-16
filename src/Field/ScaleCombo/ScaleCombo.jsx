@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Select } from 'antd';
 const Option = Select.Option;
-import OlMap from 'ol/map';
+import OlMap from 'ol/Map';
 import {
   isInteger,
   isEmpty,
